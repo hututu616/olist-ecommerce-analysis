@@ -233,7 +233,7 @@ Severity → Late Rate
 
 ## Dashboard 1 — Marketplace Performance Overview
 
-![Marketplace Performance Overview](images/dashboard_1_marketplace_overview.png)
+![Marketplace Performance Overview](images/Dashboard 1：Marketplace Performance Overview.png)
 
 Dashboard 1 主要展示：
 
@@ -257,7 +257,7 @@ Dashboard 1 主要展示：
 
 ## Dashboard 2 — Customer Experience & Retention
 
-![Customer Experience & Retention](images/dashboard_2_customer_experience_retention.png)
+![Customer Experience & Retention](images/Dashboard 2：Customer Experience & Retention.png)
 
 Dashboard 2 主要展示：
 
