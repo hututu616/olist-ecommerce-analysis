@@ -33,57 +33,36 @@
 
 ---
 
-## 数据处理
+---
 
-原始数据包含 Orders、Customers、Order Items、Products、Sellers、Payments、Reviews 等多张关系表。
+## 📊 Tableau Dashboard
 
-其中 `order_items`、`payments` 和 `reviews` 均可能存在：
+### Interactive Dashboard
 
-> 一张订单对应多行记录
+ [View Interactive Dashboard on Tableau Public](https://public.tableau.com/app/profile/.30981806/viz/olist_ecommerce_analysis_17892648550210/Dashboard1MarketplacePerformanceOverview)
 
-如果直接将这些表同时 JOIN 到 Orders，容易造成同一订单被重复展开，从而导致 GMV、订单数等指标被重复计算。
+### Dashboard 1 — Marketplace Performance Overview
 
-因此，本项目首先将多个一对多表预聚合至 **Order Level（一行一张订单）**，再构建统一订单分析视图。
+![Marketplace Performance Overview](images/dashboard_1_marketplace_overview.png)
 
-主要数据处理包括：
+展示平台整体经营表现，包括：
 
-- 使用 `customer_unique_id` 识别真实消费者
-- 将 `order_items` 聚合至订单粒度计算 GMV
-- 将 Payments 聚合至订单粒度
-- 对 Reviews 进行去重处理
-- 构建 Delivery Days、Delay Days 和 Late Flag
-- 使用 `delivered` 订单作为核心经营分析样本
-- 使用 `ROW_NUMBER()` 判断 New / Returning Orders
-- 使用 `LAG()` 分析 Repeat Purchase Interval
-- 使用 Cohort Analysis 分析购买留存
+- GMV / Orders / Customers / AOV
+- Monthly GMV Trend
+- GMV by State
+- New vs Returning Orders
 
-### 核心指标口径
+### Dashboard 2 — Customer Experience & Retention
 
-**GMV**
+![Customer Experience & Retention](images/dashboard_2_customer_experience_retention.png)
 
-```text
-SUM(order_items.price)
-```
+展示配送体验与客户留存，包括：
 
-GMV 不包含 Freight。
-
-**AOV**
-
-```text
-GMV / Orders
-```
-
-**Late Order**
-
-```text
-Actual Delivery Date > Estimated Delivery Date
-```
-
-**Repeat Purchase Rate**
-
-```text
-Customers with 2+ Orders / Total Customers
-```
+- Late Rate
+- Delivery Impact on Reviews
+- State Delivery Priority
+- Cohort Purchase Retention
+- Repeat Purchase Interval
 
 ---
 
@@ -226,58 +205,59 @@ Severity → Late Rate
 因此：
 
 > 首次购买后的前 30 天可能是二次购买激励和客户召回的重要运营窗口。
-
 ---
 
-# Tableau Dashboard
+## 数据处理
 
-## Dashboard 1 — Marketplace Performance Overview
+原始数据包含 Orders、Customers、Order Items、Products、Sellers、Payments、Reviews 等多张关系表。
 
-Dashboard 1 主要展示：
+其中 `order_items`、`payments` 和 `reviews` 均可能存在：
 
-- GMV
-- Orders
-- Customers
-- AOV
-- Monthly GMV Trend
-- GMV by State
-- New vs Returning Orders
+> 一张订单对应多行记录
 
-主要用于回答：
+如果直接将这些表同时 JOIN 到 Orders，容易造成同一订单被重复展开，从而导致 GMV、订单数等指标被重复计算。
 
-> 平台业务规模如何？  
-> GMV 是否持续增长？  
-> 增长主要来自哪里？  
-> 交易集中在哪些地区？  
-> 平台增长依赖新客还是老客？
+因此，本项目首先将多个一对多表预聚合至 **Order Level（一行一张订单）**，再构建统一订单分析视图。
 
----
+主要数据处理包括：
 
-## Dashboard 2 — Customer Experience & Retention
+- 使用 `customer_unique_id` 识别真实消费者
+- 将 `order_items` 聚合至订单粒度计算 GMV
+- 将 Payments 聚合至订单粒度
+- 对 Reviews 进行去重处理
+- 构建 Delivery Days、Delay Days 和 Late Flag
+- 使用 `delivered` 订单作为核心经营分析样本
+- 使用 `ROW_NUMBER()` 判断 New / Returning Orders
+- 使用 `LAG()` 分析 Repeat Purchase Interval
+- 使用 Cohort Analysis 分析购买留存
 
-Dashboard 2 主要展示：
+### 核心指标口径
 
-- Late Rate
-- On-Time Review
-- Late Review
-- Repeat Purchase Rate
-- State Delivery Priority
-- Delivery Impact on Reviews
-- Cohort Purchase Retention
-- Repeat Purchase Interval
+**GMV**
 
-主要用于回答：
+```text
+SUM(order_items.price)
+```
 
-> 配送问题是否影响客户体验？  
-> 哪些区域需要优先改善？  
-> 客户购买后是否会再次回来？  
-> 已经复购的客户通常在什么时候再次购买？
+GMV 不包含 Freight。
 
----
+**AOV**
 
-## Interactive Dashboard
+```text
+GMV / Orders
+```
 
-https://public.tableau.com/app/profile/.30981806/viz/olist_ecommerce_analysis_17892648550210/Dashboard1MarketplacePerformanceOverview
+**Late Order**
+
+```text
+Actual Delivery Date > Estimated Delivery Date
+```
+
+**Repeat Purchase Rate**
+
+```text
+Customers with 2+ Orders / Total Customers
+```
 
 ---
 
@@ -433,20 +413,11 @@ olist-ecommerce-analysis/
 
 ---
 
-# Data Source
+## Data Source
 
-**Olist Brazilian E-Commerce Public Dataset**
+[Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-原始数据主要包含：
-
-- Customers
-- Orders
-- Order Items
-- Products
-- Sellers
-- Payments
-- Reviews
-- Product Category Translation
+原始数据包含 Customers、Orders、Order Items、Products、Sellers、Payments、Reviews 和 Product Category Translation 等关系表。
 
 ---
 
