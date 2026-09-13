@@ -1,0 +1,4 @@
+customer_type,customers,orders,gmv,avg_customer_gmv,customer_share_pct
+One-time,90315,90315,12455672.09,137.91,97.00
+Repeat,2562,5124,628326.08,245.25,2.75
+High-frequency,227,772,97028.96,427.44,0.24
